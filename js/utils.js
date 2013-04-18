@@ -329,8 +329,9 @@ define(['jquery', 'jquery.cookie'], function ($) {
                 popup = window.webkitNotifications.createHTMLNotification(text);
             }
             if (bind = '#NextTrack') {
-                popup.addEventListener('click', function () {
-                    $(bind).click();
+                popup.addEventListener('click', function (bind) {
+                    //$(bind).click();
+                    //require("player").nextTrack();
                     this.cancel();
                 })
             }
