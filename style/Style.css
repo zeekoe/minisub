@@ -350,7 +350,7 @@ ul.simplelist li a
 }
 ul.simplelist li:hover
 {
-    background-color: #EEF5FD;
+    background-color: #EEF4FA;
 }
 ul.simplelist li.index
 {
@@ -373,7 +373,7 @@ ul.mainlist
 ul.mainlist li.selected
 {
     color: #f2f2f2;
-    background-color: #60A2E9;
+    background-color: #528AC6;
 }
 ul.mainlist li.item a.play
 {
@@ -471,7 +471,7 @@ ul.songlist .album
 }
 ul.songlist .album a
 {
-    color: #829FC0;
+    color: #7EA8D5;
     text-decoration: none;  
     overflow: hidden;
 	white-space: nowrap;
@@ -573,7 +573,7 @@ ul.songlist .row
 }
 ul.songlist .row a
 {
-    color: #829FC0;
+    color: #7EA8D5;
     text-decoration: none;  
     float: left;
     font-size: 12px;  
@@ -700,20 +700,20 @@ ul.songlist li.playing
 }
 ul.songlist li.selected
 {
-    background-color: #D4E6F9;
+    background-color: #D4E2F1;
     background-image: url('../images/check_8x7.png');
     background-position: 10px 16px;
     background-repeat: no-repeat;
 }
 ul.songlist li.selected:hover {
-    background-color: #D4E6F9;
+    background-color: #D4E2F1;
 }
 ul.songlist li.album {
     background-image: none;
 }
 ul.songlist li:hover
 {
-    background-color: #EEF5FD;
+    background-color: #EEF4FA;
 }
 .fillheight {
     position: absolute;

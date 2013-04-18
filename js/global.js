@@ -132,17 +132,19 @@
 
     /*
     { date: "", version: "", changes: 
-        [{ text: "- "}]
+    [{ text: "- "}]
     },
     */
     self.changeLog = [
     { date: "4/15/2013", version: "3.0", changes: [
-	        { text: "- Rewrite of code using Require.js, Knockout.js & Sammy.js (Expect missing features/bugs)"},
+	        { text: "- Rewrite of code using Require.js, Knockout.js & Sammy.js (Expect missing features/bugs)" },
+            { text: "- New name, new logo!" },
 	        { text: "- Basic support for Archive.org streaming" }
-    ]},
+    ]
+    },
     { date: "1/15/2013", version: "2.4.1", changes: [
-	        { text: "- Column alignment, moved pager, bug fixes" }]
-      },
+	        { text: "- Column alignment, moved pager, bug fixes"}]
+    },
       { date: "12/21/2012", version: "2.3.8",
           changes: [
 	    { text: "- Added support for the <a href=\"https://chrome.google.com/webstore/detail/swayfm-unified-music-medi/icckhjgjjompfgoiidainoapgjepncej\" target=\"_blank\">Sway.fm Unified Music Media Keys</a> Chrome extension" },
