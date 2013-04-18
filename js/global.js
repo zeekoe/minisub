@@ -13,7 +13,7 @@
         Server: ko.observable(""),
         Protocol: ko.observable("jsonp"),
         Protocols: new ko.observableArray(["json", "jsonp"]),
-        ApplicationName: ko.observable("MiniSub"),
+        ApplicationName: ko.observable("Jamstash"),
         ApiVersion: ko.observable("1.6.0"),
         AutoPlaylists: ko.observable(""),
         AutoPlaylistSize: ko.observable(25),
@@ -155,7 +155,7 @@
       },
       { date: "12/6/2012", version: "2.3.6",
           changes: [
-	    { text: "- Added Setting to toggle JSONP (This is for cross-domain requests, aka Subsonic is hosted on a different domain than MiniSub)" },
+	    { text: "- Added Setting to toggle JSONP (This is for cross-domain requests, aka Subsonic is hosted on a different domain than Jamstash)" },
 	    { text: "- Switched back to URL authentication (Including coverArt)" }
     ]
       },
@@ -210,7 +210,7 @@
       },
       { date: "10/7/2012", version: "2.1.2",
           changes: [
-	    { text: "- Current Playlist will stay focused on the current track (Thanks <a href=\"https://github.com/tsquillario/MiniSub/issues/42\" target=\"_blank\">Concept211</a>)" },
+	    { text: "- Current Playlist will stay focused on the current track (Thanks <a href=\"https://github.com/tsquillario/Jamstash/issues/42\" target=\"_blank\">Concept211</a>)" },
 	    { text: "- Option to save track position & the Current Playlist automatically, will persist on a browser refresh/close" },
 	    { text: "- Added Autopilot feature to start playing random songs with one click, this will continue to load more songs" },
 	    { text: "- Made it easier to skip to a certain position in the current song (Hover over the progress bar)" },

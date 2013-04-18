@@ -1,6 +1,6 @@
 Jamstash - HTML5 Music Streamer
 
-Imagine you can stream all your music from home, to any device, where ever you are. That is Subsonic! Now imagine having a Web App to stream your music that is as beautiful and well designed as it is functional, that is MiniSub!
+Imagine you can stream all your music from home, to any device, where ever you are. That is Subsonic! Now imagine having a Web App to stream your music that is as beautiful and well designed as it is functional, that is Jamstash!
 
 What?
 * HTML5 Audio Streamer for your Subsonic server. 
@@ -26,7 +26,7 @@ Features
 * AutoSave Mode (saves position and current playlist if you close or refresh your browser)
 
 ***Please submit all bug reports & feature requests via the GitHub page***
-https://github.com/tsquillario/MiniSub/issues
+https://github.com/tsquillario/Jamstash/issues
 
 You will need a Subsonic server to be able to play your own music. Subsonic is a free, web-based media streamer, providing ubiquitous access to your music. Use it to share your music with friends, or to listen to your own music while at work. Please see http://www.subsonic.org
 
@@ -40,7 +40,7 @@ Change Log inside...
 
 ***Permissions**
 
-* You will have to allow MiniSub to "Access your data on all websites". This is required because your Subsonic server could be at any URL `http://*/*` or `https://*/*`. This is somewhat misleading, we ask for `*://*/*` access so that developers can make API calls to ANY URL ...
+* You will have to allow Jamstash to "Access your data on all websites". This is required because your Subsonic server could be at any URL `http://*/*` or `https://*/*`. This is somewhat misleading, we ask for `*://*/*` access so that developers can make API calls to ANY URL ...
 
 we don't collect any personal data and we don't want access to your data on all websites, we simply have to use that permission so developers can use the App on all urls.
 
@@ -49,4 +49,4 @@ we don't collect any personal data and we don't want access to your data on all 
 * If you want to help star this issue: http://code.google.com/p/chromium/issues/detail?id=158004
 
 License: GNU General Public License version 2 (GPLv2)
-https://github.com/tsquillario/MiniSub/blob/master/gpl-2.0.txt
+https://github.com/tsquillario/Jamstash/blob/master/gpl-2.0.txt

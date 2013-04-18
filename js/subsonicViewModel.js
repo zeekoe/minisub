@@ -669,8 +669,6 @@
         self.ping();
         self.getMusicFolders();
         self.getArtists();
-    } else {
-        utils.changeTab("tabSettings");
     }
 
     return {

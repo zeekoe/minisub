@@ -351,17 +351,23 @@ function playVideo(id, bitrate) {
 }
 function scrobbleSong(submission) {
     var songid = $('#songdetails_song').attr('childid');
-    $.ajax({
-        url: settings.BaseURL() + '/scrobble.view?' + settings.BaseParams() + '&id=' + songid + "&submission=" + submission,
-        method: 'GET',
-        dataType: settings.Protocol(),
-        timeout: 10000,
-        success: function () {
-            if (submission) {
-                scrobbled = true;
+    if (settings.Username() != '' && settings.Server() != '') {
+        $.ajax({
+            url: settings.BaseURL() + '/scrobble.view?' + settings.BaseParams() + '&id=' + songid + "&submission=" + submission,
+            method: 'GET',
+            dataType: settings.Protocol(),
+            timeout: 10000,
+            success: function () {
+                if (submission) {
+                    scrobbled = true;
+                }
             }
+        });
+    } else {
+        if (submission) {
+            scrobbled = true;
         }
-    });
+    }
 }
 function rateSong(songid, rating) {
     $.ajax({
