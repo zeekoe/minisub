@@ -74,6 +74,14 @@ span.apiversion
 {
     background: url('../images/subsonic_dn_36.png') no-repeat 5px 2px;    
 }
+#version
+{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 10px;
+    opacity: .8;
+}
 #nav 
 {
     height: 54px;
@@ -453,8 +461,6 @@ ul.songlist
 }
 ul.songlist .album:hover
 {
-    /*background: #EEF5FD*/
-    opacity: .85;
 }
 ul.songlist .album
 {
@@ -475,14 +481,19 @@ ul.songlist .album a:hover
 {
     text-decoration: underline;    
 }
+ul.songlist .album .albumlink {
+    float: right;
+    margin: 0 5px 5px 5px;
+}
 ul.songlist .album .description
 {
-    background: #FFFFFF;
+    background: #ffffff;
     clear: both;
-    color: #545454;
-    font-size: 11px;
+    color: #2A2A2A;
+    font-size: 13px;
     margin: 5px;
     padding: 5px 10px;
+    line-height: 20px;
 }
 ul.songlist .album .itemactions
 {
@@ -512,7 +523,7 @@ ul.songlist .album .albumart img
 }
 ul.songlist .album .title
 {
-    padding: 8px 0 0px 0;
+    padding: 5px 0 0px 0;
 }
 ul.songlist .album a.play
 {
@@ -689,19 +700,13 @@ ul.songlist li.playing
 }
 ul.songlist li.selected
 {
-    color: #f2f2f2;
-    border-bottom: 1px solid #73ABE7;
-    background-color: #60A2E9;
+    background-color: #D4E6F9;
     background-image: url('../images/check_8x7.png');
     background-position: 10px 16px;
     background-repeat: no-repeat;
 }
 ul.songlist li.selected:hover {
-    background-color: #4B95E5;    
-}
-ul.songlist li.selected a
-{
-    color: #ffffff;
+    background-color: #D4E6F9;
 }
 ul.songlist li.album {
     background-image: none;
@@ -1378,6 +1383,12 @@ input
     font-family:   Calibri, Arial, Verdana;
     font-size: 14px;
     padding: 5px;
+}
+input.m
+{
+    border: 1px solid #DCDCDC;
+    width: 80px;
+    margin: 5px;
 }
 input.large
 {

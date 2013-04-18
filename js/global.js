@@ -130,10 +130,16 @@
         }
     }
 
+    /*
+    { date: "", version: "", changes: 
+        [{ text: "- "}]
+    },
+    */
     self.changeLog = [
     { date: "4/15/2013", version: "3.0", changes: [
-	        { text: "- Rewrite of code using Require.js, Knockout.js & Sammy.js (Expect missing features/bugs)"}]
-    },
+	        { text: "- Rewrite of code using Require.js, Knockout.js & Sammy.js (Expect missing features/bugs)"},
+	        { text: "- Basic support for Archive.org streaming" }
+    ]},
     { date: "1/15/2013", version: "2.4.1", changes: [
 	        { text: "- Column alignment, moved pager, bug fixes" }]
       },
@@ -308,27 +314,27 @@
 	    { text: "- Redesigned player to utilize entire width of screen" }
     ]
       },
-      { date: "3/6/2012", changes: [{ text: ".022 can be installed anywhere, Chrome App support, JSONP implementation"}] },
-      { date: "2/22/2012", changes: [{ text: ".021 added sidebar for chat and now playing, bug fixes"}] },
-      { date: "1/25/2012", changes: [{ text: ".020 table layout for songs, bug fixes, display tweaks"}] },
-      { date: "1/18/2012", changes: [{ text: ".019 rating support, random playlist, new preferences added"}] },
-      { date: "1/9/2012", changes: [{ text: ".018 added media keyboard bindings from @itchy"}] },
-      { date: "1/5/2012", changes: [{ text: ".017 added FancyBox to CoverArt, improved current playlist functions"}] },
-      { date: "11/22/2011", changes: [{ text: ".016 single artist bug fix, added API error notification"}] },
-      { date: "11/15/2011", changes: [{ text: ".015 fixed search issue, added last.fm support from @smrq"}] },
-      { date: "10/14/2011", changes: [{ text: ".014 multiple api call issue fix"}] },
-      { date: "10/14/2011", changes: [{ text: ".013 moved auto playlists, album display tweaks"}] },
-      { date: "10/13/2011", changes: [{ text: ".012 added Current Playlist, fixed some bugs"}] },
-      { date: "10/2/2011", changes: [{ text: ".011 added play button from album list"}] },
-      { date: "10/1/2011", changes: [{ text: ".010 fix for subdirectory custom installs"}] },
-      { date: "9/30/2011", changes: [{ text: ".009 now playing support, added back button to track list, other tweaks"}] },
-      { date: "9/17/2011", changes: [{ text: ".008 pause/play button tweak"}] },
-      { date: "9/17/2011", changes: [{ text: ".007 display tweaks for tablet, chat feature added"}] },
-      { date: "8/25/2011", changes: [{ text: ".006 flexible layout, added buttons to player"}] },
-      { date: "8/24/2011", changes: [{ text: ".005 playlist fixes, added auto playlists"}] },
-      { date: "8/17/2011", changes: [{ text: ".004 https fix, audio player tweaks"}] },
-      { date: "8/15/2011", changes: [{ text: ".003 Fixed song details on player"}] },
-      { date: "8/15/2011", changes: [{ text: ".001 Initial Release"}] }
+      { date: "3/6/2012", version: "", changes: [{ text: ".022 can be installed anywhere, Chrome App support, JSONP implementation"}] },
+      { date: "2/22/2012", version: "", changes: [{ text: ".021 added sidebar for chat and now playing, bug fixes"}] },
+      { date: "1/25/2012", version: "", changes: [{ text: ".020 table layout for songs, bug fixes, display tweaks"}] },
+      { date: "1/18/2012", version: "", changes: [{ text: ".019 rating support, random playlist, new preferences added"}] },
+      { date: "1/9/2012", version: "", changes: [{ text: ".018 added media keyboard bindings from @itchy"}] },
+      { date: "1/5/2012", version: "", changes: [{ text: ".017 added FancyBox to CoverArt, improved current playlist functions"}] },
+      { date: "11/22/2011", version: "", changes: [{ text: ".016 single artist bug fix, added API error notification"}] },
+      { date: "11/15/2011", version: "", changes: [{ text: ".015 fixed search issue, added last.fm support from @smrq"}] },
+      { date: "10/14/2011", version: "", changes: [{ text: ".014 multiple api call issue fix"}] },
+      { date: "10/14/2011", version: "", changes: [{ text: ".013 moved auto playlists, album display tweaks"}] },
+      { date: "10/13/2011", version: "", changes: [{ text: ".012 added Current Playlist, fixed some bugs"}] },
+      { date: "10/2/2011", version: "", changes: [{ text: ".011 added play button from album list"}] },
+      { date: "10/1/2011", version: "", changes: [{ text: ".010 fix for subdirectory custom installs"}] },
+      { date: "9/30/2011", version: "", changes: [{ text: ".009 now playing support, added back button to track list, other tweaks"}] },
+      { date: "9/17/2011", version: "", changes: [{ text: ".008 pause/play button tweak"}] },
+      { date: "9/17/2011", version: "", changes: [{ text: ".007 display tweaks for tablet, chat feature added"}] },
+      { date: "8/25/2011", version: "", changes: [{ text: ".006 flexible layout, added buttons to player"}] },
+      { date: "8/24/2011", version: "", changes: [{ text: ".005 playlist fixes, added auto playlists"}] },
+      { date: "8/17/2011", version: "", changes: [{ text: ".004 https fix, audio player tweaks"}] },
+      { date: "8/15/2011", version: "", changes: [{ text: ".003 Fixed song details on player"}] },
+      { date: "8/15/2011", version: "", changes: [{ text: ".001 Initial Release"}] }
     ]
 
     self.archiveCollections = [

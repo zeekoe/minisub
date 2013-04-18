@@ -114,7 +114,7 @@
                 coverart = self.settings.BaseURL() + '/getCoverArt.view?' + self.settings.BaseParams() + '&size=50&id=' + album.coverArt;
             }
             if (typeof album.starred !== 'undefined') { starred = true; } else { starred = false; }
-            return new model.Album(album.id, album.parent, album.album, album.artist, coverart, album.created, starred, '');
+            return new model.Album(album.id, album.parent, album.album, album.artist, coverart, album.created, starred, '', '');
         }
     }
     self.AutoAlbums = new ko.observableArray([
@@ -163,7 +163,7 @@
                     coverart = self.settings.BaseURL() + '/getCoverArt.view?' + self.settings.BaseParams() + '&size=50&id=' + album.coverArt;
                 }
                 if (typeof album.starred !== 'undefined') { starred = true; } else { starred = false; }
-                return new model.Album(album.id, album.parent, album.name, album.artist, coverart, album.created, starred, '');
+                return new model.Album(album.id, album.parent, album.name, album.artist, coverart, album.created, starred, '', '');
             }
         }
         $.ajax({
@@ -467,7 +467,7 @@
                     coverart = self.settings.BaseURL() + '/getCoverArt.view?' + self.settings.BaseParams() + '&size=50&id=' + album.coverArt;
                 }
                 if (typeof album.starred !== 'undefined') { starred = true; } else { starred = false; }
-                return new model.Album(album.id, null, album.title, null, coverart, null, starred, '');
+                return new model.Album(album.id, null, album.title, null, coverart, null, starred, '', '');
             }
         }
         /*
@@ -576,7 +576,7 @@
                     coverart = self.settings.BaseURL() + '/getCoverArt.view?' + self.settings.BaseParams() + '&size=50&id=' + album.coverArt;
                 }
                 if (typeof album.starred !== 'undefined') { starred = true; } else { starred = false; }
-                return new model.Album(album.id, null, album.name, null, coverart, null, starred, '');
+                return new model.Album(album.id, null, album.name, null, coverart, null, starred, '', '');
             }
         }
         $.ajax({

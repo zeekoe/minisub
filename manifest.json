@@ -1,21 +1,23 @@
 {
 	"manifest_version": 2,
-	"name": "MiniSub",
+	"name": "MiniSub (Beta)",
 	"description": "MiniSub - HTML5 Mini Player for Subsonic",
-	"version": "2.4.1",
+	"version": "3.0.0",
 	"app": {
+		"urls": [
+			"http://*/*", 
+			"https://*/*"
+		],
 		"launch": {
-			"local_path": "index.html"
+			"web_url": "http://tsquillario.github.io/MiniSub"
 		}
 	},
-	"icons": { 
+	"icons": {
 		"16": "icon_16.png",
-		"128": "icon_128.png" 
+		"128": "icon_128.png"
 	},
 	"permissions": [
-		"unlimited_storage",
-		"notifications",
-		"http://*/*", 
-		"https://*/*"
+		"unlimitedStorage",
+		"notifications"
 	]
 }

@@ -4,8 +4,8 @@ Imagine you can stream all your music from home, to any device, where ever you a
 
 MiniSub is an HTML5 Web Player for the Subsonic streaming server. 
 
-***Please submit all bug reports & feature requests via the GitHub page***
-https://github.com/tsquillario/MiniSub/issues
+***New***
+* Basic Archive.org browsing and streaming
 
 Features
 * HTML5 Audio with Flash fallback (provided by the SoundManager2 library)
@@ -24,6 +24,9 @@ Features
 * Last.fm support
 * Autopilot Mode (click one button and songs continue to play)
 * AutoSave Mode (saves position and current playlist if you close or refresh your browser)
+
+***Please submit all bug reports & feature requests via the GitHub page***
+https://github.com/tsquillario/MiniSub/issues
 
 You will need a Subsonic server to be able to play your own music. Subsonic is a free, web-based media streamer, providing ubiquitous access to your music. Use it to share your music with friends, or to listen to your own music while at work. Please see http://www.subsonic.org
 

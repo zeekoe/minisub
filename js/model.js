@@ -9,7 +9,7 @@ define(['knockout', 'utils'], function (ko, utils) {
         this.id = ko.observable(id);
         this.name = ko.observable(name);
     }
-    var Album = function (id, parentid, name, artist, coverart, date, starred, description) {
+    var Album = function (id, parentid, name, artist, coverart, date, starred, description, url) {
         this.id = ko.observable(id);
         this.parentid = ko.observable(parentid);
         this.name = ko.observable(name);
@@ -18,6 +18,7 @@ define(['knockout', 'utils'], function (ko, utils) {
         this.date = ko.observable(date);
         this.starred = ko.observable(starred);
         this.description = ko.observable(description);
+        this.url = ko.observable(url);
     }
     var Song = function (id, parentid, track, name, artist, artistId, album, albumId, coverartthumb, coverartfull, duration, rating, starred, suffix, specs, url, position, description) {
         var self = this;

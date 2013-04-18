@@ -20,15 +20,15 @@
 
             // Default route
             this.get('', function () { this.app.runRoute('get', '#tabLibrary') });
+
+            this.notFound = function () {
+                //alert('notFound');
+            }
         }).run();
 
-        //self.changeLog = new ko.observableArray(global.changeLog).slice(1, 10);
-        self.changeLog = new ko.observableArray(global.changeLog);
+        self.changeLog = new ko.observableArray(global.changeLog.slice(0, 10));
         self.changeLogShowMore = function () {
-            $('ul#ChangeLog li.log').each(function (i, el) {
-                $(el).show();
-            });
-            return false;
+            self.changeLog(global.changeLog);
         }
         self.selectedSongs = new ko.observableArray([]);
         self.selectSong = function (data, event) {

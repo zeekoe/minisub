@@ -2,10 +2,10 @@
 <html>
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
-    <title>MiniSub</title>
-    <link href="images/subsonic_32x32.ico" rel="shortcut icon" />
-    <link rel="icon" href="images/subsonic_48x48.png" sizes="48x48"/>
-    <link rel="icon" href="images/subsonic_32x32.png" sizes="32x32"/>
+    <title>Jamstash</title>
+    <link href="images/favicon_32x32.ico" rel="shortcut icon" />
+    <link rel="icon" href="images/favicon_48x48.png" sizes="48x48"/>
+    <link rel="icon" href="images/favicon_32x32.png" sizes="32x32"/>
     <link href="style/Style.css" rel="stylesheet" type="text/css" data-name="main" />
     <link href="" rel="stylesheet" type="text/css" data-name="theme" />
     <link href="js/plugins/fancybox/jquery.fancybox.css" rel="stylesheet" type="text/css" />
@@ -15,12 +15,13 @@
 <div id="container">
     <div id="messages"></div>    
     <div id="loading"></div>
+    <div id="version">[Beta]</div>
     <div id="nav">
         <ul class="tabs">
         <li><a href="#tabQueue" title="Play Queue" data-bind="click: $root.changeTab.bind($data, 'tabQueue'), css: { active: $root.activeTab() === 'tabQueue' } "><img src="images/play_alt_gd_16x16.png" /></a></li>
         <li><a href="#tabLibrary" class="first" title="Library" data-bind="click: $root.changeTab.bind($data, 'tabLibrary'), css: { active: $root.activeTab() === 'tabLibrary' } "><img src="images/headphones_gd_16x14.png" /></a></li>
         <li><a href="#tabArchive" class="first" title="Archive.org" data-bind="click: $root.changeTab.bind($data, 'tabArchive'), css: { active: $root.activeTab() === 'tabArchive' } "><img src="images/archive_gd_16x16.png" /></a></li>
-        <li><a href="#tabPlaylists" title="Playlists"><img src="images/list_gd_16x14.png" /></a></li>
+        <!--<li><a href="#tabPlaylists" title="Playlists"><img src="images/list_gd_16x14.png" /></a></li>-->
         <!--<li><a href="#tabVideos" id="action_tabVideos" title="Videos"><img src="images/movie_gd_16x16.png" /></a></li>-->
         <li><a href="#tabSettings" class="last" title="Settings" data-bind="click: $root.changeTab.bind($data, 'tabSettings'), css: { active: $root.activeTab() == 'tabSettings' } "><img src="images/cog_16x16.png" /></a></li>
         </ul>
@@ -136,12 +137,15 @@
                     <div id="ArchiveArtists" class="smcontainer fillheight" tabindex="0">
                         <select class="large" id="Collections" data-bind="event: { change: $root.selectedCollectionChange }, options: AllCollections, optionsCaption: '[Select Collection]'"></select><br />
                         <ul class="simplelist mainlist noselect" data-bind="foreach: artist">
-                            <li class="item" data-bind="attr: { id: id }, click: $root.getAlbums, css: { selected: $data === $root.selectedArtist() }"><span data-bind="text: name"></span></li>
+                            <li class="item" data-bind="attr: { id: id }, click: $root.getAlbums.bind($data, 'collection', '', '', ''), css: { selected: $data === $root.selectedArtist() }"><span data-bind="text: name"></span></li>
                         </ul>
                     </div>
                     <div id="ArchiveAlbumsRight">
-                        <div class="albumcontainer fillheight noselect">
-                            <ul class="simplelist songlist" data-bind="templateWithContext: { name: 'album-template', data: album, context: { flag: 'archive' } }"></ul>
+                        <div class="albumcontainer fillheight">
+                            <select id="ArchiveAlbumSort" data-bind="options: ArchiveAlbumSort, value: $root.selectedArchiveAlbumSort"></select>
+                            <select id="Years" data-bind="options: Years, value: $root.selectedYear, optionsCaption: '[Year]'"></select>
+                            <input type="text" id="Source" name="Source" class="m" data-bind="value: $root.selectedSource" placeholder="Source" title="Source"/><br />
+                            <ul class="simplelist songlist noselect" data-bind="templateWithContext: { name: 'album-template', data: album, context: { flag: 'archive' } }"></ul>
                         </div>
                         <div class="songcontainer fillheight noselect">
                             <ul class="simplelist songlist" data-bind="template: { name: 'song-template', foreach: song }"></ul>
@@ -156,6 +160,7 @@
         <script type="text/html" id="album-template">
             <!-- ko foreach: $data -->
             <li class="album" userrating="undefined" data-bind="attr: { id: id, parentid: parentid }, click: $root.getSongs.bind($data, id(), ''), css: { selected: $data === $root.selectedAlbum() }">
+                <div class="albumlink"><a href="" data-bind="attr: { href: url, title: url }, visible: ($parent.flag == 'archive'), click: $root.openLink, clickBubble: false" target="_blank">Source</a></div>
                 <div class="itemactions">
                     <a class="add" href="" title="Add To Play Queue" data-bind="click: $root.getSongs.bind($data, id(), 'add'), clickBubble: false"></a>
                     <a class="play" href="" title="Play" data-bind="click: $root.getSongs.bind($data, id(), 'play'), clickBubble: false"></a>
@@ -429,11 +434,11 @@
                 <div class="subsection floatleft">
                     <h3 class="title">Change Log</h3>
                     <ul id="ChangeLog" class="preferences" data-bind="foreach: $root.changeLog">
-                    <li class="log"><span class="version" data-bind="text: date"></span>
-                        <!-- ko foreach: changes -->
-                        <span class="changes" data-bind="html: text"></span>
-                        <!-- /ko -->
-                    </li>
+                        <li class="log"><span class="version" data-bind="text: date + ' - ' + version"></span>
+                            <!-- ko foreach: changes -->
+                            <span class="changes" data-bind="html: text"></span>
+                            <!-- /ko -->
+                        </li>
                     </ul>
                     <a href="#" data-bind="click: changeLogShowMore">Show More</a>
                 </div>
@@ -520,5 +525,16 @@
             <div class="clear"></div>
         </div>
 </div><!-- end #container -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+  m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-40174100-1', 'github.io');
+    ga('send', 'pageview');
+</script>
 </body>
 </html>
