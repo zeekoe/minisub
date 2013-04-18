@@ -136,7 +136,7 @@
     },
     */
     self.changeLog = [
-    { date: "4/15/2013", version: "3.0", changes: [
+    { date: "4/15/2013", version: "3.0.5", changes: [
 	        { text: "- Rewrite of code using Require.js, Knockout.js & Sammy.js (Expect missing features/bugs)" },
             { text: "- New name, new logo!" },
 	        { text: "- Basic support for Archive.org streaming" }
