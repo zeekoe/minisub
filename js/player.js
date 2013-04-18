@@ -191,7 +191,7 @@ playSong = function (loadonly, data) {
     scrobbled = false;
 
     if (settings.NotificationSong() && !loadonly) {
-        utils.showNotification(coverartSrc, utils.toHTML.un(title), utils.toHTML.un(artist + ' - ' + album), 'text', '#NextTrack');
+        utils.showNotification(coverartthumb, utils.toHTML.un(title), utils.toHTML.un(artist + ' - ' + album), 'text', '#NextTrack');
     }
     if (settings.ScrollTitle()) {
         var title = utils.toHTML.un(artist) + ' - ' + utils.toHTML.un(title);
