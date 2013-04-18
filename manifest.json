@@ -1,11 +1,11 @@
 {
 	"manifest_version": 2,
 	"name": "Jamstash (Beta)",
-	"description": "MiniSub - HTML5 Mini Player for Subsonic",
-	"version": "3.0.5",
+	"description": "HTML5 Player for Subsonic & Archive.org",
+	"version": "3.0.7",
 	"app": {
 		"launch": {
-			"web_url": "http://tsquillario.github.io/MiniSub"
+			"web_url": "http://tsquillario.github.io/Jamstash"
 		}
 	},
 	"icons": {
