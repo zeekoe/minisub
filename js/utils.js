@@ -137,6 +137,9 @@ define(['jquery', 'jquery.cookie'], function ($) {
         var a = time.split(':'); // split it at the colons
         var seconds;
         switch (a.length) {
+            case 1:
+                seconds = 0;
+                break;
             case 2:
                 seconds = (parseInt(a[0])) * 60 + (parseInt(a[1]));
                 break;
@@ -331,7 +334,7 @@ define(['jquery', 'jquery.cookie'], function ($) {
             if (bind = '#NextTrack') {
                 popup.addEventListener('click', function (bind) {
                     //$(bind).click();
-                    //require("player").nextTrack();
+                    require("player").nextTrack();
                     this.cancel();
                 })
             }
@@ -446,6 +449,9 @@ define(['jquery', 'jquery.cookie'], function ($) {
         toHTML: toHTML,
         findKeyForCode: findKeyForCode,
         browserStorageCheck: browserStorageCheck,
+        parseVersionString: parseVersionString,
+        checkVersion: checkVersion,
+        checkVersionNewer: checkVersionNewer,
         changeTab: changeTab,
         confirmDelete: confirmDelete,
         requestPermissionIfRequired: requestPermissionIfRequired,

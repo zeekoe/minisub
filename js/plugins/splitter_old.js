@@ -30,7 +30,7 @@
  * @return jQuery
  * @author Dave Methvin (dave.methvin@gmail.com)
  */
- ;(function($){
+(function($){
 
 var splitterCounter = 0;
 
@@ -191,7 +191,7 @@ $.fn.splitter = function(args){
 		opts.barStateClasses = [opts.barNormalClass, opts.barHoverClass, opts.barActiveClass, opts.barLimitClass].join(' ');
 
         // Create jQuery object closures for splitter and both panes
-        var splitter = $(this).css({position: "relative"}).addClass(opts.splitterClass).attr("data-splitter-initialized",true)
+        var splitter = $(this).css({position: "absolute"}).addClass(opts.splitterClass).attr("data-splitter-initialized",true)
         var panes = $(">*", splitter[0]).addClass(opts.paneClass).css({
             position: "absolute",           // positioned inside splitter container
             "z-index": "1",                 // splitbar is positioned above

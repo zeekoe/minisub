@@ -1,4 +1,4 @@
-﻿define(['jquery', 'knockout', 'mapping', 'jplayer', 'global', 'utils', 'model', 'subsonicViewModel', 'jquery.scrollTo'], function ($, ko, mapping, jPlayer, global, utils, model, subsonicViewModel) {
+﻿define(['jquery', 'knockout', 'mapping', 'jplayer', 'global', 'utils', 'model', 'subsonic', 'jquery.scrollTo'], function ($, ko, mapping, jPlayer, global, utils, model, subsonic) {
 var self = this;
 var player1 = '#playdeck_1';
 var player2 = '#playdeck_2';
@@ -286,12 +286,19 @@ function loadjPlayer(el, url, suffix, loadonly, position) {
             utils.setValue('Volume', event.jPlayer.options.volume, true);
         },
         ended: function(event) {
-            if (!getNextSong()) {
-                if (settings.AutoPlay()) {
-                    require("subsonicViewModel").getRandomSongs('play', '', '');
-                }
+            if (settings.Repeat()) { // Repeat current track if enabled
+                $(this).jPlayer("play");
             } else {
-                nextTrack();
+                if (!getNextSong()) { // Action if we are at the last song in queue
+                    if (settings.LoopQueue()) { // Loop to first track in queue if enabled
+                        var next = self.queue()[0];
+                        playSong(false, next);                
+                    } else if (settings.AutoPlay()) { // Load more tracks if enabled
+                        subsonic.getRandomSongs('play', '', '');
+                    }
+                } else {
+                    nextTrack();
+                }
             }
         },
         error: function(event) {
@@ -350,8 +357,9 @@ function playVideo(id, bitrate) {
 	});
 }
 function scrobbleSong(submission) {
-    var songid = $('#songdetails_song').attr('childid');
-    if (settings.Username() != '' && settings.Server() != '') {
+    var songid = $('#songdetails li.song').attr('id');
+    if (typeof songid != 'undefined' && settings.Username() != '' && settings.Server() != '') {
+        if (settings.Debug()) { console.log('Scrobble Song: ' + songid); }
         $.ajax({
             url: settings.BaseURL() + '/scrobble.view?' + settings.BaseParams() + '&id=' + songid + "&submission=" + submission,
             method: 'GET',

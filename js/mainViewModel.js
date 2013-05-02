@@ -1,11 +1,23 @@
-﻿define(['knockout', 'postbox', 'sammy', 'utils', 'global', 'player', 'jquery.scrollTo'], function (ko, postbox, Sammy, utils, global, player) {
+﻿define(['knockout', 'postbox', 'sammy', 'utils', 'global', 'player', 'subsonicViewModel', 'archiveViewModel', 'subsonic', 'jqueryui', 'jquery.layout', 'jquery.scrollTo'], function (ko, postbox, Sammy, utils, global, player, subsonicViewModel, archiveViewModel, subsonic) {
     return function mainViewModel() {
         var self = this;
+        self.settings = global.settings;
         // Navigation
         self.activeTab = ko.observable('tabLibrary');
         self.changeTab = function (tab) {
             utils.changeTab(tab);
         };
+        self.tabLibrary = false;
+        self.tabArchive = false;
+
+        self.queue = new ko.observableArray([]).subscribeTo("queue");
+        window.onbeforeunload = function () {
+            if (!self.settings.Debug()) {
+                if (self.queue().length > 0) {
+                    return "You're about to end your session, are you sure?";
+                }
+            }
+        }
 
         // Client-Side Routes
         Sammy(function () {
@@ -15,6 +27,40 @@
 
             this.get('#:tab', function () {
                 var id = this.params.tab;
+                /*
+                var layoutOptions = {
+                east__size: .5,
+                east__minSize: 400,
+                east__maxSize: .5, // 50% of layout width
+                east__initClosed: false,
+                east__initHidden: false,
+                //center__size: 'auto',
+                center__minWidth: .3,
+                center__initClosed: false,
+                center__initHidden: false,
+                west__size: .2,
+                west__minSize: 200,
+                west__initClosed: false,
+                west__initHidden: false,
+                //stateManagement__enabled: true, // automatic cookie load & save enabled by default
+                showDebugMessages: true // log and/or display messages from debugging & testing code
+                //applyDefaultStyles: true
+                };
+                */
+                if (id == 'tabLibrary' && !self.tabLibrary) {
+                    ko.applyBindings(new subsonicViewModel(), $('#tabLibrary')[0]);
+                    //$('#tabLibrary div.split-pane').splitPane();
+                    //$('#SubsonicAlbums').layout(layoutOptions);
+                    $("#SubsonicAlbums").layout("resizeAll");
+                    self.tabLibrary = true;
+                }
+                if (id == 'tabArchive' && !self.tabArchive) {
+                    ko.applyBindings(new archiveViewModel(), $('#tabArchive')[0]);
+                    //$('#tabArchive div.split-pane').splitPane();
+                    //$('#ArchiveAlbums').layout(layoutOptions);
+                    $("#ArchiveAlbums").layout("resizeAll");
+                    self.tabArchive = true;
+                }
                 self.activeTab(id);
             });
 
@@ -59,11 +105,23 @@
                 return '0 song(s), 00:00:00 total time';
             }
         });
+        self.queueShuffle = function (data, event) {
+            self.queue.sort(function () { return 0.5 - Math.random() });
+        }
 
+        self.toggleSetting = function (data, event) {
+            var id = event.currentTarget.id;
+            if (self.settings[id]()) {
+                self.settings[id](false);
+            } else {
+                self.settings[id](true);
+            }
+
+        }
         self.scrollToIndex = function (data, event) {
             var e = event;
             var source = e.target.id;
-            if (source != 'Search' && source != 'ChatMsg' && source != 'AutoPlaylists') {
+            if (source != 'Search' && source != 'Source' && source != 'Description' && source != 'ChatMsg' && source != 'AutoPlaylists') {
                 var unicode = e.charCode ? e.charCode : e.keyCode;
                 if (settings.Debug()) { console.log('Keycode Triggered: ' + unicode); }
                 /*
@@ -158,6 +216,7 @@
                 location.reload();
             }
         }
+        self.updateFavorite = function (data, event) { return subsonic.updateFavorite(data, event); }
 
         // Player
         self.defaultPlay = function () { return player.defaultPlay; }

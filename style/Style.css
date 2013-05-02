@@ -1,4 +1,4 @@
-html, body { height: 100%; }
+html, body { height: 100%; width: 100%; }
 body 
 {
 	font: 100% Trebuchet MS, Arial, Helvetica, sans-serif;
@@ -7,7 +7,6 @@ body
 	padding: 0;
 	text-align: center; 
 	color: #5b5b4e;
-	height: 100%;
 }
 img 
 {
@@ -45,6 +44,7 @@ span.apiversion
 .alignright { text-align: right; }
 .aligncenter { text-align: center; }
 .padright { padding: 0 10px 0 0; }
+.hide { display: none; }
 /* Old: Using CSS3
 .odd { background: #fff; }
 .even { background: #f4f4f4; }
@@ -179,15 +179,11 @@ span.apiversion
     background: #fff;
     border-top: 1px solid #cbcbcb;
     border-bottom: 1px solid #cbcbcb;
+    width:  100%; 
+    overflow: hidden;
     position: absolute;
     top: 40px;
     bottom: 84px;
-    left: 0;
-    overflow-y: hidden;
-    overflow-x: hidden;
-    width: 100%;
-    float: left;
-    margin-right: -100%;
 }
 .fullsection
 {
@@ -255,20 +251,19 @@ span.apiversion
 #messages
 {
     display: none;
-    width: 200px;
+    width: 600px;
     font-size: 12px;
     position: absolute;
     z-index: 99;
     top: 0;
-    right: 50px;
+    right: 10px;
 }
 #messages .message
 {
     color: #4B95E5;
     float: right;
-    clear: both;
     padding: 5px;
-    margin: 2px 0 2px 0;
+    margin: 2px 5px 2px 0;
     background: #fff;
     border: 1px solid #A6CBF3;
     border-radius: 4px 4px 4px 4px;
@@ -339,6 +334,14 @@ ul.simplelist li
 #AutoAlbumContainer li.item
 {
     padding: 6px 8px;
+}
+#AutoAlbumContainer a.nextprev
+{
+    padding: 4px;
+}
+#AutoAlbumContainer a.nextprev:hover
+{
+    background: #000;
 }
 ul.simplelist li .name
 {
@@ -690,8 +693,8 @@ ul.songlist .row a.remove:hover
 {
     background: url('../images/minus_8x2.png') no-repeat 6px center #DEECFB;
 }
-ul.songlist li:nth-child(odd)   { background-color:#f4f4f4; }
-ul.songlist li:nth-child(even)  { background-color:#fff; }
+ul.songlist li:nth-child(odd) { background-color:#f4f4f4; }
+ul.songlist li:nth-child(even) { background-color:#fff; }
 ul.songlist li.playing
 {
     background-image: url('../images/play_alt_gd_16x16.png');
@@ -725,55 +728,53 @@ ul.songlist li:hover
     overflow-y: scroll;
     overflow-x: hidden;
 }
-.smcontainer
-{
-    padding: 4px 0 40px 0;
-    outline: none;
-    left: 0;
-    width: 15%;
-    min-width: 200px;
-    max-width: 400px;  
-}
-.albumcontainer {
-    left: 15%;
-    width: 30%;
-    min-width: 400px;        
-}
-.songcontainer {
-    left: 45%;    
-    width: 55%;    
-    min-width: 400px;        
-}
 #ArtistContainer
 {
 }
 #BottomContainer
 {
+    display: none;
     border-top: 1px solid #F2F2F2;
     background: rgba(255, 255, 255, .8);
     position: fixed;
-    height: 43px;
-    width: 178px;
+    bottom: 85px;
 }
-#BottomContainer ul 
+#BottomContainer a
 {
-  list-style-type: none;
-  margin: 0;
-  padding: 0 0 0 10px;
+    color: #7EA8D5;
+    font-size: 24px;
+    text-decoration: none;
+    padding: 5px;
+    display: block;
 }
-#BottomContainer #BottomIndex li
+#BottomContainer a:hover { text-decoration: underline; }
+#submenu_BottomIndex 
+{
+    width: 200px;
+    height: 100px;
+    position: fixed;
+} 
+#submenu_BottomIndex ul 
+{
+    list-style-type: none;
+    margin: 0;
+    padding: 0 0 0 10px;
+}
+#submenu_BottomIndex li
 {
     float: left;
     height: 18px;
+    padding: 0 2px 5px 2px;
 }
-#BottomContainer #BottomIndex li a
+#submenu_BottomIndex li a
 {
     color: #4B95E5;
     text-decoration: none;
-    font-size: 13px;
+    font-size: 24px;
     padding: 0 5px 0 0;
+    cursor: pointer;    
 }
-#BottomContainer #BottomIndex li a:hover
+#submenu_BottomIndex li a:hover
 {
     text-decoration: underline;
 }
@@ -790,13 +791,22 @@ ul.songlist li:hover
     margin: 5px 0 0 0;
     padding: 0 0 0 5px;
 }
+.subactionsfixed
+{
+    position: fixed;
+    bottom: 85px;
+    padding: 5px;
+    background: #fff;
+    border-top: 1px solid #CBCBCB;
+    border-right: 1px solid #CBCBCB;
+}
 .submenu 
 {
     position: absolute;
     background: #fff;
     padding: 5px 10px;
     margin: 2px 0 0 1px;
-    z-index:99;
+    z-index:999;
 }
 .submenu a
 {
@@ -1172,19 +1182,6 @@ ul.songlist li:hover
     display: block;
     background: url('../images/volume_gd_12x9.png') 0 center no-repeat;
 }
-#songdetails a.shuffle
-{
-    float: left;
-    margin: 2px;
-	height: 12px;
-    width: 16px;
-    display: block;
-	background: url('../images/loop_alt4_gd_16x12.png') 0 center no-repeat;	
-}
-#songdetails a.shuffle:hover, #songdetails a.shuffle_up
-{
-    background: url('../images/loop_alt4_gl_16x12.png') 0 center no-repeat;
-}
 #songdetails a.lock
 {
     float: left;
@@ -1193,6 +1190,24 @@ ul.songlist li:hover
     width: 9px;
     display: block;
 	background: url('../images/lock_stroke_gl_9x12.png') 0 center no-repeat;	
+}
+#songdetails a.loop
+{
+    float: left;
+    margin: 4px 2px;
+	height: 9px;
+    width: 12px;
+    display: block;
+	background: url('../images/loop_alt3_gd_12x9.png') 0 center no-repeat;	
+}
+#songdetails a.shuffle
+{
+    float: left;
+    margin: 2px;
+	height: 11px;
+    width: 12px;
+    display: block;
+	background: url('../images/fork_gd_11x12.png') 0 center no-repeat;	
 }
 #songdetails a.first
 {
@@ -1347,6 +1362,7 @@ a.button img.pad { margin: 1px 0 -1px 0; }
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 }
 a.hover:hover { opacity: .6; }
+a.hoverSelected { opacity: .6; }
 
 /* Scrollbar Style */
 ::-webkit-scrollbar {
@@ -1388,6 +1404,12 @@ input.m
 {
     border: 1px solid #DCDCDC;
     width: 80px;
+    margin: 5px;
+}
+input.mlg
+{
+    border: 1px solid #DCDCDC;
+    width: 120px;
     margin: 5px;
 }
 input.large
@@ -1512,36 +1534,9 @@ legend
     display: block;
 }
 
-/* jQuery Splitter Style */
-.vsplitbar {
-	width: 5px;
-	background: #f2f2f2;
+.ui-layout-pane {
+    outline: none;
 }
-.splitter {
-}
-.ui-state-default { background-color: #f2f2f2; }
-.ui-state-hover { background-color: #EEF5FD; }
-.ui-state-highlight { background-color: #EEF5FD; }
-.ui-state-error { background-color: #eaa; }
-.splitter-pane {
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-.splitter-bar-vertical {
-    width: 6px;
-    background-image: url(../images//vgrabber.gif);
-    background-repeat: no-repeat;
-    background-position: center;
-}
-.splitter-bar-vertical-docked {
-    width: 10px;
-    background-image: url(../images//vdockbar-trans.gif);
-    background-repeat: no-repeat;
-    background-position: center;
-}
-.splitter-bar.ui-state-highlight {
-    opacity: 0.7;
-}
-.splitter-iframe-hide {
-    visibility: hidden;
+.ui-layout-center {
+    z-index: 100 !important;
 }

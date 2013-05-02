@@ -30,7 +30,9 @@
         Theme: ko.observable("Default"),
         Themes: new ko.observableArray(["Default", "Dark"]),
         AutoPlay: ko.observable(false),
-        Debug: ko.observable(true)
+        LoopQueue: ko.observable(false),
+        Repeat: ko.observable(false),
+        Debug: ko.observable(false)
     };
     /* For Basic Authentication
     settings.Auth = ko.computed(function () {
@@ -71,7 +73,14 @@
     self.settings.AutoPlaylistSize.subscribe(function (newValue) { utils.setValue('AutoPlaylistSize', newValue, true); });
     self.settings.AutoAlbumSize.subscribe(function (newValue) { utils.setValue('AutoAlbumSize', newValue, true); });
     self.settings.SavedCollections.subscribe(function (newValue) { utils.setValue('SavedCollections', newValue, true); });
-    self.settings.HideAZ.subscribe(function (newValue) { utils.setValue('HideAZ', newValue, true); });
+    self.settings.HideAZ.subscribe(function (newValue) {
+        utils.setValue('HideAZ', newValue, true);
+        if (newValue) {
+            $('#BottomContainer').hide();
+        } else {
+            $('#BottomContainer').show();
+        }
+    });
     self.settings.ScrollTitle.subscribe(function (newValue) { utils.setValue('ScrollTitle', newValue, true); });
     self.settings.NotificationSong.subscribe(function (newValue) {
         utils.requestPermissionIfRequired();
@@ -102,6 +111,8 @@
     });
     self.settings.ForceFlash.subscribe(function (newValue) { utils.setValue('ForceFlash', newValue, true); });
     self.settings.AutoPlay.subscribe(function (newValue) { utils.setValue('AutoPlay', newValue, true); });
+    self.settings.LoopQueue.subscribe(function (newValue) { utils.setValue('LoopQueue', newValue, true); });
+    self.settings.Repeat.subscribe(function (newValue) { utils.setValue('Repeat', newValue, true); });
     self.settings.Theme.subscribe(function (newValue) {
         utils.switchTheme(newValue);
         utils.setValue('Theme', newValue, true);
@@ -129,19 +140,26 @@
             return new model.Song(song.id, song.parent, track, song.title, song.artist, song.artistId, song.album, song.albumId, coverartthumb, coverartfull, song.duration, song.userRating, starred, suffix, specs, url, 0, description);
         }
     }
-
+    // <a href=\"\" target=\"_blank\"></a>
     /*
     { date: "", version: "", changes: 
     [{ text: "- "}]
     },
     */
     self.changeLog = [
-    { date: "4/15/2013", version: "3.0.5", changes: [
-	        { text: "- Rewrite of code using Require.js, Knockout.js & Sammy.js (Expect missing features/bugs)" },
+        { date: "5/1/2013", version: "3.0.8",
+            changes: [
+	        { text: "- Added back Folder playlists as well as editing support for playlists" },
+	        { text: "- Switched to the jQuery UI Layout Plug-in <a href=\"http://layout.jquery-dev.net\" target=\"_blank\">http://layout.jquery-dev.net</a> for layout panes" },
+            ]
+        },
+        { date: "4/15/2013", version: "3.0.5", 
+            changes: [
+	        { text: "- Rewrite of code using <a href=\"http://requirejs.org\" target=\"_blank\">Require.js</a>, <a href=\"http://knockoutjs.com\" target=\"_blank\">Knockout.js</a> & <a href=\"http://sammyjs.org\" target=\"_blank\">Sammy.js</a> (Expect missing features/bugs)" },
             { text: "- New name, new logo!" },
-	        { text: "- Basic support for Archive.org streaming" }
-    ]
-    },
+	        { text: "- Basic support for <a href=\"http://www.archive.org/details/etree\" target=\"_blank\">Archive.org</a> streaming" }
+            ]
+        },
     { date: "1/15/2013", version: "2.4.1", changes: [
 	        { text: "- Column alignment, moved pager, bug fixes"}]
     },

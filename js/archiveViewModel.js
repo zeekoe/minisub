@@ -1,7 +1,5 @@
-﻿/// <reference path="../../js/plugins/knockout-2.2.1.debug.js" />
-/// <reference path="../../js/plugins/knockout.mapping-latest.debug.js" />
-define(['knockout', 'postbox', 'mapping', 'global', 'utils', 'model', 'player'], function (ko, postbox, mapping, global, utils, model, player) {
-    return function archiveViewModel() {
+﻿define(['knockout', 'postbox', 'mapping', 'global', 'utils', 'model', 'player'], function (ko, postbox, mapping, global, utils, model, player) {
+    return function () {
         var self = this;
         self.artist = new ko.observableArray([]);
         self.album = new ko.observableArray([]);
@@ -56,35 +54,35 @@ define(['knockout', 'postbox', 'mapping', 'global', 'utils', 'model', 'player'],
         }
         self.selectedArchiveAlbumSort = ko.observable("date desc");
         self.ArchiveAlbumSort = new ko.observableArray([
-            'addeddate desc',
-            'addeddate asc',
-            'avg_rating desc',
-            'avg_rating asc',
-            'createdate desc',
-            'createdate asc',
-            'date desc',
-            'date asc',
-            'downloads desc',
-            'downloads asc',
-            'num_reviews desc',
-            'num_reviews asc',
-            'publicdate desc',
-            'publicdate asc',
-            'stars desc',
-            'stars asc'
-            ]),
-        self.selectedArchiveAlbumSort.subscribe(function (newValue) {
-            if (utils.getValue('AlbumSort') != newValue) {
-                if (typeof newValue != 'undefined') {
-                    utils.setValue('AlbumSort', newValue, true);
-                } else {
-                    utils.setValue('AlbumSort', null, true);
-                }
-                //alert(newValue);
-                self.getAlbums('', newValue.replace(" ", "+"), '', '');
+        'addeddate desc',
+        'addeddate asc',
+        'avg_rating desc',
+        'avg_rating asc',
+        'createdate desc',
+        'createdate asc',
+        'date desc',
+        'date asc',
+        'downloads desc',
+        'downloads asc',
+        'num_reviews desc',
+        'num_reviews asc',
+        'publicdate desc',
+        'publicdate asc',
+        'stars desc',
+        'stars asc'
+        ]),
+    self.selectedArchiveAlbumSort.subscribe(function (newValue) {
+        if (utils.getValue('AlbumSort') != newValue) {
+            if (typeof newValue != 'undefined') {
+                utils.setValue('AlbumSort', newValue, true);
+            } else {
+                utils.setValue('AlbumSort', null, true);
             }
-        });
-        self.getAlbums = function (from, sort, year, source) {
+            //alert(newValue);
+            self.getAlbums('');
+        }
+    });
+        self.getAlbums = function (from) {
             var id, name;
             if (from == 'collection') {
                 self.selectedArtist(this);
@@ -120,6 +118,9 @@ define(['knockout', 'postbox', 'mapping', 'global', 'utils', 'model', 'player'],
                 if (parseInt(self.selectedYear())) {
                     url += ' AND year:(' + self.selectedYear() + ')';
                 }
+            }
+            if (self.selectedDescription()) {
+                url += ' AND description:(' + self.selectedDescription() + ')';
             }
             url += '&fl[]=avg_rating,collection,date,description,downloads,headerImage,identifier,publisher,publicdate,source,subject,title,year';
             if (self.selectedArchiveAlbumSort()) {
@@ -160,13 +161,19 @@ define(['knockout', 'postbox', 'mapping', 'global', 'utils', 'model', 'player'],
         self.Years = new ko.observableArray(self.getYears()),
         self.selectedYear.subscribe(function (newValue) {
             if (typeof newValue != 'undefined') {
-                self.getAlbums('', '', newValue, '');
+                self.getAlbums('');
             }
         });
         self.selectedSource = ko.observable();
         self.selectedSource.subscribe(function (newValue) {
             if (typeof newValue != 'undefined' && newValue != '') {
-                self.getAlbums('', '', '', newValue);
+                self.getAlbums('');
+            }
+        });
+        self.selectedDescription = ko.observable();
+        self.selectedDescription.subscribe(function (newValue) {
+            if (typeof newValue != 'undefined' && newValue != '') {
+                self.getAlbums('');
             }
         });
         self.getSongs = function (id, action) {
@@ -179,7 +186,7 @@ define(['knockout', 'postbox', 'mapping', 'global', 'utils', 'model', 'player'],
                 timeout: 10000,
                 success: function (data) {
                     var songs = [];
-                    var url, track, title, rating, starred, contenttype, suffix;
+                    var url, time, track, title, rating, starred, contenttype, suffix;
                     var specs = '', coverartthumb = '', coverartfull = '';
                     var server = data.server;
                     var dir = data.dir;
@@ -194,7 +201,8 @@ define(['knockout', 'postbox', 'mapping', 'global', 'utils', 'model', 'player'],
                             specs = song.bitrate + 'kbps, ' + song.format.toLowerCase();
                             if (typeof song.track == 'undefined') { track = '&nbsp;'; } else { track = song.track; }
                             if (typeof song.title == 'undefined') { title = '&nbsp;'; } else { title = song.title; }
-                            songs.push(new model.Song(song.id, song.album, song.track, title, song.creator, '', song.album, '', coverartthumb, coverartfull, utils.timeToSeconds(song.length), '', '', 'mp3', specs, url, 0, ''));
+                            if (typeof song.length == 'undefined') { time = '&nbsp;'; } else { time = utils.timeToSeconds(song.length); }
+                            songs.push(new model.Song(song.id, song.album, song.track, title, song.creator, '', song.album, '', coverartthumb, coverartfull, time, '', '', 'mp3', specs, url, 0, ''));
                         }
                     });
                     if (action == 'add') {
@@ -228,5 +236,30 @@ define(['knockout', 'postbox', 'mapping', 'global', 'utils', 'model', 'player'],
 
         // Init
         self.getArtists();
+
+        return {
+            artist: self.artist,
+            album: self.album,
+            song: self.song,
+            selectedArtist: self.selectedArtist,
+            selectedAlbum: self.selectedAlbum,
+            selectedSongs: self.selectedSongs,
+            selectSong: self.selectSong,
+            addSongsToQueue: self.addSongsToQueue,
+            getArtists: self.getArtists,
+            getAlbums: self.getAlbums,
+            getSongs: self.getSongs,
+            AllCollections: self.AllCollections,
+            selectedCollectionChange: self.selectedCollectionChange,
+            openLink: self.openLink,
+            ArchiveAlbumSort: self.ArchiveAlbumSort,
+            selectedArchiveAlbumSort: self.selectedArchiveAlbumSort,
+            selectedYear: self.selectedYear,
+            Years: self.Years,
+            selectedSource: self.selectedSource,
+            selectedDescription: self.selectedDescription,
+            selectAll: self.selectAll,
+            selectNone: self.selectNone
+        };
     }
 });

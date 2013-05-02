@@ -3,21 +3,28 @@
         'knockout': 'plugins/knockout-2.2.1',
         'mapping': 'plugins/knockout.mapping-latest',
         'postbox': 'plugins/knockout-postbox.min',
-        'jquery': 'plugins/jquery-1.7.2.min',
-        'jqueryui': 'plugins/jquery-ui-1.8.20.min',
+        'jquery': 'plugins/jquery-1.8.3',
+        'jqueryui': 'plugins/jquery-ui-1.9.2.custom.min',
+        'jquery.layout': 'plugins/jquery.layout-latest',
         'jquery.cookie': 'plugins/jquery.cookie',
         'jquery.fancybox': 'plugins/fancybox/jquery.fancybox.pack',
         'jquery.scrollTo': 'plugins/jquery.scrollTo.min',
         'sammy': 'plugins/sammy-latest.min',
         'domReady': 'plugins/domReady',
         'jplayer': 'jplayer/jquery.jplayer.min',
-        'splitter': 'plugins/splitter',
         'model': 'model',
         'global': 'global',
         'utils': 'utils',
         'player': 'player'
     },
     shim: {
+        "jqueryui": {
+            exports: "$",
+            deps: ['jquery']
+        },
+        'jquery.layout':{
+            deps: ['jqueryui']
+        },
         'jquery.cookie': {
             deps: ['jquery']
         },
@@ -27,10 +34,6 @@
         'jquery.scrollTo':{
             deps: ['jquery']
         },
-        "jqueryui": {
-            exports: "$",
-            deps: ['jquery']
-        },
         'sammy': {
             deps: ['jquery'],
             exports: 'Sammy'
@@ -38,29 +41,31 @@
         'jplayer': {
             deps: ['jquery'],
             exports: 'jPlayer'
-        },
-        'splitter': {
-            deps: ['jquery']
-        },
+        }
     },
     baseUrl: "js"
 }); 
-require(['jquery', 'knockout', 'sammy', 'global', 'utils', 'mainViewModel', 'subsonicViewModel', 'archiveViewModel', 'player', 'jqueryui', 'jquery.fancybox', 'splitter', 'domReady!'], function ($, ko, Sammy, global, utils, mainViewModel, subsonicViewModel, archiveViewModel, player) {
+require(['jquery', 'knockout', 'sammy', 'global', 'utils', 'mainViewModel', 'player', 'jqueryui', 'jquery.layout', 'jquery.fancybox', 'domReady!'], function ($, ko, Sammy, global, utils, mainViewModel, player) {
     var self = this;
 
+    /*
     function resizeSplitter(el) {
         $(el).trigger("resize");
     }
     $('#SubsonicAlbums').splitter({
         type: "v",
+		outline: true,
         sizeLeft: 150,
-        cookie: "splitter1",
-        resizeToWidth: true
+        //cookie: "splitter1",
+        resizeToWidth: true,
+        anchorToWindow: true
     });
     $('#SubsonicAlbumsRight').splitter({
         type: "v",
-        cookie: "splitter2",
-        resizeToWidth: true
+		outline: true,
+        //cookie: "splitter1",
+        resizeToWidth: true,
+        anchorToWindow: true
     });
     $('#SubsonicArtists').resize(function() {
         resizeSplitter('#SubsonicAlbumsRight');
@@ -78,6 +83,7 @@ require(['jquery', 'knockout', 'sammy', 'global', 'utils', 'mainViewModel', 'sub
     $('#ArchiveArtists').resize(function() {
         resizeSplitter('#ArchiveAlbumsRight');
     });
+    */
 
     $('.noselect').disableSelection();
 
@@ -88,6 +94,16 @@ require(['jquery', 'knockout', 'sammy', 'global', 'utils', 'mainViewModel', 'sub
         'complete': function () {
             $("#loading").hide();
         }
+    });
+
+    var submenu_active = false;
+    $('div.submenu').mouseenter(function () {
+        submenu_active = true;
+    });
+    $('div.submenu').mouseleave(function () {
+        submenu_active = false;
+        $('div.submenu').hide();
+        //setTimeout(function () { if (submenu_active == false) $('div.submenu').stop().fadeOut(); }, 400);
     });
 
     $("a#coverartimage").fancybox({
@@ -121,6 +137,28 @@ require(['jquery', 'knockout', 'sammy', 'global', 'utils', 'mainViewModel', 'sub
     $("#tabQueue ul.songlist").sortable({
         helper: fixHelper
     }).disableSelection();
+
+    // JQuery Layout Plugin
+    var layoutOptions = {
+        east__size: .5,
+        east__minSize: 400,
+        east__maxSize: .5, // 50% of layout width
+        east__initClosed: false,
+        east__initHidden: false,
+        //center__size: 'auto',
+        center__minWidth: .3,
+        center__initClosed: false,
+        center__initHidden: false,
+        west__size: .2,
+        west__minSize: 200,
+        west__initClosed: false,
+        west__initHidden: false,
+        //stateManagement__enabled: true, // automatic cookie load & save enabled by default
+        showDebugMessages: true // log and/or display messages from debugging & testing code
+        //applyDefaultStyles: true
+    };
+    $('#SubsonicAlbums').layout(layoutOptions);
+    $('#ArchiveAlbums').layout(layoutOptions);
 
     // Custom Binding for (stopBinding: true)
     ko.bindingHandlers.stopBinding = {
@@ -157,13 +195,13 @@ require(['jquery', 'knockout', 'sammy', 'global', 'utils', 'mainViewModel', 'sub
                 delete options.context;
             }
 
-            ko.bindingHandlers.template.update.apply(this, arguments);
+            ko.bindingHandlers.template.update.apply(this, arguments); 
         } 
     };           
 
     ko.applyBindings(new mainViewModel());
-    ko.applyBindings(subsonicViewModel, $('#tabLibrary')[0]);
-    ko.applyBindings(new archiveViewModel(), $('#tabArchive')[0]);
+    //ko.applyBindings(subsonicViewModel, $('#tabLibrary')[0]);
+    //ko.applyBindings(archiveViewModel, $('#tabArchive')[0]);
 
     // Variable Init
     if (global.settings.SaveTrackPosition()) {
@@ -172,5 +210,7 @@ require(['jquery', 'knockout', 'sammy', 'global', 'utils', 'mainViewModel', 'sub
     if (global.settings.Theme() == 'Dark') {
         utils.switchTheme(global.settings.Theme());
     }
-   
+
+    //$('div.split-pane').splitPane();
+
 });
