@@ -1,5 +1,5 @@
 function updateBaseParams() {
-    server = 'http://localhost:8080';
+    server = '';
     baseURL = server + '/rest';
     baseParams = 'u=' + username + '&p=' + password + '&f=' + protocol + '&v=' + apiVersion + '&c=' + applicationName;
 }
