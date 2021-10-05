@@ -98,6 +98,12 @@ function playSong(el, songid, albumid, title, artist, album, coverart, rating, s
         if (getCookie('ForceFlash')) {
             audioSolution = "flash,html";
         }
+        if (suffix == null) {
+            suffix = contenttype.split('/')[1];
+            if (suffix === 'ogg') {
+                suffix = 'oga';
+            }
+        }
         $("#playdeck").jPlayer("destroy");
         $.jPlayer.timeFormat.showHour = true; 
         $("#playdeck").jPlayer({

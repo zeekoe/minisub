@@ -19,7 +19,7 @@ var unity;
 // Get URL Querystring Parameters
 var u = getParameterByName('u');
 var p = getParameterByName('p');
-var s = getParameterByName('s');
+server = 'http://localhost:8080'
 if (u && p && s) {
     // Auto configuration from Querystring params
     if (!getCookie('username')) {
@@ -30,18 +30,12 @@ if (u && p && s) {
         setCookie('passwordenc', p);
         password = p;
     }
-    if (!getCookie('Server')) {
-        setCookie('Server', s, { expires: 365 });
-        server = getCookie('Server') + '/rest';
-        baseURL = server;
-    }
     window.location.href = getPathFromUrl(window.location);
 }
 
-if (getCookie('Server')) {
-    server = getCookie('Server') + '/rest';
-    baseURL = server;
-}
+
+baseURL = server + "/rest";
+
 if (getCookie('ApplicationName')) {
     applicationName = getCookie('ApplicationName');
 } else {
