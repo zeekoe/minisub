@@ -19,7 +19,7 @@ var unity;
 // Get URL Querystring Parameters
 var u = getParameterByName('u');
 var p = getParameterByName('p');
-server = ''
+server = '/'
 if (u && p && s) {
     // Auto configuration from Querystring params
     if (!getCookie('username')) {

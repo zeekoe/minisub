@@ -1,5 +1,5 @@
 function updateBaseParams() {
-    server = '';
+    server = '/';
     baseURL = server + '/rest';
     baseParams = 'u=' + username + '&p=' + password + '&f=' + protocol + '&v=' + apiVersion + '&c=' + applicationName;
 }
